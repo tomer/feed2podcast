@@ -6,7 +6,7 @@ class Cache {
     }
     
     private function encode_url($url) {
-        return md5($url);
+        return $this->path .'/'. md5($url);
     }
     
     public function is_cached($item) {
