@@ -1,3 +1,3 @@
 <?php
 require('../feed2podcast.php');
-feed2pc('test.atom');
+$feed2podcast = new PodcastFeedCreator('test.atom');

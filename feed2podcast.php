@@ -1,10 +1,26 @@
 <?php
-function feed2pc($feed){
-	//error_reporting(2147483647);
-	$feed_str=file_get_contents($feed);
-	$sxe = new SimpleXMLElement($feed_str);
-	foreach ($sxe->channel->item as $item){
-		$page=file_get_contents($item->link);
+
+class PodcastFeedCreator {
+    public function __construct($feed) {
+        echo $this->processFeed($feed);
+    }
+    
+    public function processFeed($feed) {
+    	$feed_str=file_get_contents($feed);
+	    $sxe = new SimpleXMLElement($feed_str);
+	    foreach ($sxe->channel->item as $item) {
+	        $file = $this->findEnclosureLink($item->link);
+    		$enclosure=$item->addChild('enclosure');
+	    	$enclosure->addAttribute('url',$file);
+	    	$enclosure->addAttribute('type','mp3');
+		}
+		
+		return $sxe->asXML();
+	
+    }
+    
+    public function findEnclosureLink($item) {
+        $page=file_get_contents($item);
 		$dom = new DOMDocument();
 		@$dom->loadHTML($page);
 		$xpath = new DOMXPath($dom);
@@ -13,13 +29,8 @@ function feed2pc($feed){
 			$href = $hrefs->item($i);
 			$url = $href->getAttribute('href');
 			if(substr($url,-4)=='.mp3') {
-				$file=$url;
-				break;
+				return $url;
 			}
-		}
-		$enclosure=$item->addChild('enclosure');
-		$enclosure->addAttribute('url',$file);
-		$enclosure->addAttribute('type','mp3');
-	}
-	echo $sxe->asXML();
+        }
+    }
 }
