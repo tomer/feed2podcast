@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xml:lang="he-IL.utf8">
+	<channel>
+		<title><![CDATA[Test feed]]></title>
+		<link>#</link>
+		<description><![CDATA[]]></description>
+		<item>
+			<title><![CDATA[First item]]></title>
+			<link>item1.html</link>
+			<description>
+<![CDATA[<p>This is the first item ever!</p>]]>
+			</description>
+			<author><![CDATA[Tester]]></author>
+			<category><![CDATA[tests]]></category>
+			<pubDate>Wed, 08 Aug 2012 10:21:53 GMT</pubDate>
+			<guid>12632</guid>
+		</item>
+	</channel>
+</rss>
